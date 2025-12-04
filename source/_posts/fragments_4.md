@@ -104,10 +104,10 @@ const HTML = `
 
 // ====== 工具函数 ======
 function generateFileId() {
-  return Math.random().toString(36).substring(2, 6); // 2 到 8 → 6字符
+  return Math.random().toString(36).substring(2, 6); // 4字符随机ID
 }
 
-// ====== 处理文件上传 ======
+// ====== 公共上传逻辑（无鉴权） ======
 async function handleFileUpload(file, env) {
   const MAX_SIZE = 26112000; // 25 MB
   if (file.size > MAX_SIZE) {
@@ -128,13 +128,57 @@ async function handleFileUpload(file, env) {
     expirationTtl: 43200 // 12小时 = 43200秒
   });
 
-  const downloadUrl = `https://tmp.air1.cn/${fileId}`;
+  const downloadUrl = `https://tmp.air1.cn/${fileId}`; // 👈 你的实际域名
 
   return new Response(JSON.stringify({ downloadUrl }), {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*"
     }
+  });
+}
+
+// ====== 受保护上传逻辑（需 Token） ======
+async function handleProtectedUpload(file, env, request) {
+  const authHeader = request.headers.get("Authorization");
+  const expectedToken = env.UPLOAD_TOKEN; // 从 Secrets 读取
+
+  if (!expectedToken) {
+    return new Response(JSON.stringify({ error: "服务器未配置 UPLOAD_TOKEN" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+
+  if (authHeader !== `Bearer ${expectedToken}`) {
+    return new Response(JSON.stringify({ error: "无效或缺失 Token" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+
+  const MAX_SIZE = 26112000;
+  if (file.size > MAX_SIZE) {
+    return new Response(JSON.stringify({ error: "文件不能超过 25MB" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+
+  const fileId = generateFileId();
+  const arrayBuffer = await file.arrayBuffer();
+
+  await env.TEMP_STORE.put(fileId, arrayBuffer, {
+    metadata: {
+      filename: file.name || "file",
+      contentType: file.type || "application/octet-stream"
+    },
+    expirationTtl: 43200
+  });
+
+  const downloadUrl = `https://tmp.air1.cn/${fileId}`;
+  return new Response(JSON.stringify({ downloadUrl }), {
+    headers: { "Content-Type": "application/json" }
   });
 }
 
@@ -162,7 +206,7 @@ export default {
       });
     }
 
-    // 3. 上传接口
+    // 3. 公开上传接口（网页使用）
     if (pathname === "/api/upload-public" && request.method === "POST") {
       try {
         const formData = await request.formData();
@@ -175,7 +219,7 @@ export default {
         }
         return await handleFileUpload(file, env);
       } catch (e) {
-        console.error("上传处理出错:", e);
+        console.error("公开上传出错:", e);
         return new Response(JSON.stringify({ error: "服务器内部错误" }), {
           status: 500,
           headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
@@ -183,11 +227,31 @@ export default {
       }
     }
 
-    // 4. 文件下载：直接通过 /{id} 访问（例如 /ajjdfs）
+    // 4. 受保护上传接口（需 Token）
+    if (pathname === "/api/upload" && request.method === "POST") {
+      try {
+        const formData = await request.formData();
+        const file = formData.get("file");
+        if (!file || !(file instanceof File)) {
+          return new Response(JSON.stringify({ error: "未提供有效文件" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+        return await handleProtectedUpload(file, env, request);
+      } catch (e) {
+        console.error("受保护上传出错:", e);
+        return new Response(JSON.stringify({ error: "服务器内部错误" }), {
+          status: 500,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+    }
+
+    // 5. 文件下载：通过 /{id} 访问（要求至少6字符）
     const segments = pathname.split('/').filter(Boolean);
     if (segments.length === 1 && segments[0].length >= 4) {
       const id = segments[0];
-      // 保留路径白名单（防止与未来功能冲突）
       const reservedPaths = new Set([
         'api', 'upload', 'f', 'favicon.ico', 'robots.txt', 'about', 's'
       ]);
@@ -206,7 +270,7 @@ export default {
       }
     }
 
-    // 5. 未匹配任何路由 → 404
+    // 6. 404
     return new Response("Not Found", { status: 404 });
   }
 };
@@ -264,8 +328,9 @@ curl -X POST https://tmp.yourdomain.com/api/upload-public \
 1. ID 长度与容量
 当前使用 4 位 ID（如 abcd），安全上限：≈1,600 文件 / 12 小时
 若需更高容量，改为 5 位：
-js
+```js
 return Math.random().toString(36).substring(2, 7); // 5字符
+```
 
 并将路由判断改为 segments[0].length >= 5
 2. 文件限制
@@ -273,10 +338,11 @@ return Math.random().toString(36).substring(2, 7); // 5字符
 自动 12 小时过期（通过 expirationTtl: 43200 实现）
 3. 路径冲突防护
 已预留以下路径，不会被当作文件 ID：
-js
+```js
 const reservedPaths = new Set([
 'api', 'upload', 'f', 'favicon.ico', 'robots.txt', 'about'
 ]);
+```
 4. HTTPS 与安全性
 Cloudflare 自动提供 HTTPS，无需配置证书
 上传接口为公开，如需鉴权可参考短链接服务增加 API_TOKEN
