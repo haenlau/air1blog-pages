@@ -32,14 +32,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haenlau/air1-by-hexo.git"
+    "url": "git+https://github.com/haenlau/air1blog-pages.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/haenlau/air1-by-hexo/issues"
+    "url": "https://github.com/haenlau/air1blog-pages/issues"
   },
-  "homepage": "https://github.com/haenlau/air1-by-hexo#readme"
+  "homepage": "https://github.com/haenlau/air1blog-pages#readme"
 }
