@@ -135,6 +135,10 @@ friends:
     nickname: 文件存储
     site: https://tmp.air1.cn/
     meta:
+  -
+    nickname: 留言信息
+    site: https://note.air1.cn/
+    meta:
 
 # 页脚信息
 footer:
@@ -152,7 +156,7 @@ footer:
       path: https://github.com/haenlau
     -
        name: email
-       icon: email-fill
+       icon: email
        path: me@air1.cn
     -
        name: travelling
@@ -171,8 +175,12 @@ footer:
     #   icon: wechat
     #   path:
     # -
+    #   name: Instagram
+    #   icon: Instagram
+    #   path:
+    # -
     #   name: weibo
-    #   icon: 新浪微博
+    #   icon: xinlangweibo
     #   path: https://weibo.com/u/5984587828
     # -
     #   # rss需安装 hexo-generator-feed 插件
