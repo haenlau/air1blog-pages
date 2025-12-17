@@ -154,6 +154,10 @@ footer:
        name: email
        icon: envelope
        path: me@air1.cn
+    -
+       name: travelling
+       icon: icon-travelling
+       path: me@air1.cn
     # -
     #   name: facebook
     #   icon: facebooksquare
