@@ -152,11 +152,11 @@ footer:
       path: https://github.com/haenlau
     -
        name: email
-       icon: envelope
+       icon: email-fill
        path: me@air1.cn
     -
        name: travelling
-       icon: icon-travelling
+       icon: travelling
        path: me@air1.cn
     # -
     #   name: facebook
@@ -172,7 +172,7 @@ footer:
     #   path:
     # -
     #   name: weibo
-    #   icon: weibo
+    #   icon: 新浪微博
     #   path: https://weibo.com/u/5984587828
     # -
     #   # rss需安装 hexo-generator-feed 插件

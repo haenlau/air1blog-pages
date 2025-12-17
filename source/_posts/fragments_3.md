@@ -1,5 +1,5 @@
 ---
-title: 利用 cloudflare 做一个短链接服务
+title: 做一个短链接服务
 date: 2025-12-03 13:23:21
 tags:
   - Workers
