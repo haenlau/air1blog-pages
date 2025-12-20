@@ -1,5 +1,5 @@
 ---
-title: Fuwari 主题自定义修改选项
+title: Fuwari主题自定义修改选项
 date: 2025-12-20 19:31:48
 tags:
   - Fuwari
