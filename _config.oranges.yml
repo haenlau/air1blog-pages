@@ -139,6 +139,10 @@ friends:
     nickname: 留言信息
     site: https://note.air1.cn/
     meta:
+  -
+    nickname: 访问统计
+    site: https://go.air1.cn/r5rq0i
+    meta:
 
 # 页脚信息
 footer:
@@ -155,33 +159,29 @@ footer:
       icon: github
       path: https://github.com/haenlau
     -
-       name: email
-       icon: email
-       path: me@air1.cn
+      name: email
+      icon: email
+      path: me@air1.cn
     -
-       name: travelling
-       icon: travelling
-       path: https://www.travellings.cn/go.html
+      name: Instagram
+      icon: Instagram
+      path: https://instagram.com/haenlau
+    -
+      name: X
+      icon: x
+      path: https://x.com/haenlau
+    -
+      name: travelling
+      icon: travelling
+      path: https://www.travellings.cn/go.html
     # -
     #   name: facebook
     #   icon: facebooksquare
     #   path:
     # -
-    #   name: twitter
-    #   icon: twitter
+    #   name: X
+    #   icon: x
     #   path:
-    # -
-    #   name: wechat
-    #   icon: wechat
-    #   path:
-    # -
-    #   name: Instagram
-    #   icon: Instagram
-    #   path:
-    # -
-    #   name: weibo
-    #   icon: xinlangweibo
-    #   path: https://weibo.com/u/5984587828
     # -
     #   # rss需安装 hexo-generator-feed 插件
     #   # 具体参照https://github.com/hexojs/hexo-generator-feed
