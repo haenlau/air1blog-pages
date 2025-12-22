@@ -19,7 +19,7 @@ tags:
 
 文件: src/components/widget/NoticeBoard.astro
 
-astro
+```astro
 
 // src/components/widget/NoticeBoard.astro
 import { i18n } from "../../i18n/translation";
@@ -43,6 +43,8 @@ const style = Astro.props.style;
 {noticeContent}
 </div>
 </WidgetLayout>
+```
+
 2. 添加国际化支持
 
 目的: 使公告栏标题能够根据网站语言显示对应的文字。
@@ -52,7 +54,7 @@ const style = Astro.props.style;
 
 文件: src/i18n/i18nKey.ts
 
-typescript
+```typescript
 // ... existing keys ...
 enum I18nKey {
 // ... other members ...
@@ -60,17 +62,20 @@ notice_board = "notice_board", // <-- Add this line
 // ... other members ...
 }
 // ... rest of the file ...
+```
 
 文件: src/i18n/zh-CN.ts
 
-typescript
+```typescript
 // ... imports ...
 export const zh_CN: Translation = {
 // ... existing translations ...
-[I18nKey.notice_board]: "公告栏", // <-- Add this line
+[Key.notice_board]: "公告栏", // <-- Add this line
 // ... existing translations ...
 };
 // ... rest of the file ...
+```
+
 3. 在侧边栏中引入并使用公告栏
 
 目的: 将新创建的 NoticeBoard 组件添加到侧边栏中。
@@ -80,7 +85,7 @@ export const zh_CN: Translation = {
 
 文件: src/components/Sidebar/Sidebar.astro (导入部分)
 
-astro
+```astro
 
 import type { MarkdownHeading } from "astro";
 import Categories from "./Categories.astro";
@@ -90,10 +95,11 @@ import Tag from "./Tags.astro";
 import NoticeBoard from "../widget/NoticeBoard.astro";
 // --- End 新增导入 ---
 // ... rest of the imports and logic ...
+```
 
 文件: src/components/Sidebar/Sidebar.astro (使用部分)
 
-astro
+```astro
 <!-- ... previous sidebar content ... -->
 <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
 <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
@@ -103,6 +109,8 @@ astro
 <!-- === End 新增：公告栏 === -->
 </div>
 <!-- ... rest of the sidebar content ... -->
+```
+
 4. 重启开发服务器
 
 目的: 使所有更改生效。
