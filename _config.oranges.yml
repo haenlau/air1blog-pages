@@ -163,10 +163,6 @@ footer:
       icon: email
       path: me@air1.cn
     -
-      name: Instagram
-      icon: Instagram
-      path: https://instagram.com/haenlau
-    -
       name: X
       icon: x
       path: https://x.com/haenlau
