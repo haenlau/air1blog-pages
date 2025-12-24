@@ -1,5 +1,5 @@
 ---
-title: Fuwari主题自定义修改选项二
+title: Fuwari主题添加公告栏
 date: 2025-12-01 13:51:17
 tags:
   - Fuwari
