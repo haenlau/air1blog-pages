@@ -110,7 +110,7 @@ navbar:
     path: /about/
     key: about
   -
-    name: 开往>>
+    name: 开往
     enable: true
     path: https://www.travellings.cn/go.html
     key: travelling
