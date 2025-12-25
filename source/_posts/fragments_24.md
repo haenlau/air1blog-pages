@@ -32,7 +32,7 @@ marked:
 
 2. 使用 {% raw %} 包裹敏感内容（可选）
 
-若嵌入的 HTML 包含模板语法`（如 Vue 的 {{ }}）`或特殊符号，可用 Hexo 的 raw 标签包裹，防止被错误解析：
+若嵌入的 HTML 包含模板语法（如 Vue 的`{{ }}`）或特殊符号，可用 Hexo 的 raw 标签包裹，防止被错误解析：
 
 ```liquid
 {% raw %}
@@ -48,7 +48,7 @@ marked:
 
 为避免污染全局样式、破坏主题布局，强烈建议优先采用 `<iframe>` 内嵌方式：
 
-```sh
+```html
 <iframe
 srcdoc="
 <!DOCTYPE html>
