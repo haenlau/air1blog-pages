@@ -103,3 +103,12 @@ theme: oranges
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# Markdown 渲染器配置（启用 HTML）
+marked:
+  gfm: true
+  breaks: true
+  html: true          # 允许 HTML 标签
+  sanitize: false     # 禁用内容安全过滤（关键！）
+  smartLists: true
+  smartypants: true
