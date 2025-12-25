@@ -15,7 +15,7 @@ tags:
 
 1. 启用 Markdown 中的 HTML 渲染
 
-在站点根目录的 _config.yml 中，找到或添加 marked 配置项，并确保开启 HTML 支持：
+在站点根目录的`_config.yml`中，找到或添加 marked 配置项，并确保开启 HTML 支持：
 
 ```yaml
 # 启用 Markdown 中的 HTML 渲染
@@ -30,21 +30,7 @@ marked:
 注意：sanitize: false 是关键，否则即使写了 HTML 也会被过滤掉。
 
 
-2. 使用 {% raw %} 包裹敏感内容（可选）
-
-若嵌入的 HTML 包含模板语法（如 Vue 的`{{ }}`）或特殊符号，可用 Hexo 的 raw 标签包裹，防止被错误解析：
-
-```liquid
-{% raw %}
-<div id="weibo-archive">
-<!-- 你的微博备份 HTML -->
-</div>
-<style>
-/ 局部样式 /
-</style>
-{% endraw %}
-```
-3. 更安全的推荐方案：使用 `<iframe srcdoc>`
+2. 更安全的方案：使用 `<iframe srcdoc>`
 
 为避免污染全局样式、破坏主题布局，强烈建议优先采用 `<iframe>` 内嵌方式：
 
@@ -61,5 +47,3 @@ style="width:100%; height:600px; border:none;"
 </iframe>
 ```
 此方法将内容完全隔离在独立文档上下文中，既安全又干净，不会影响原有样式。
-
-技术终归是工具，而记忆值得被温柔安放。
