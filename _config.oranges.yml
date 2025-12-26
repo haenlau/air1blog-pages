@@ -110,10 +110,10 @@ navbar:
     path: /about/
     key: about
   -
-    name: 开往
+    name: 统计
     enable: true
-    path: https://www.travellings.cn/go.html
-    key: travelling
+    path: https://go.air1.cn/0d6j92
+    key: umami
 
 # 文章目录
 catalog:
@@ -143,10 +143,6 @@ friends:
   -
     nickname: 留言信息
     site: https://note.air1.cn/
-    meta:
-  -
-    nickname: 访问统计
-    site: https://go.air1.cn/0d6j92
     meta:
 
 # 页脚信息
