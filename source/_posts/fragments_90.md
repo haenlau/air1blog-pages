@@ -4,7 +4,7 @@ date: 2025-12-25 12:02:12
 tags:
   - 碎片
 ---
-一个尘封的铁盒，没有技巧，全是感情。
+一个尘封的铁盒，里面没有技巧，全是感情。
 <div style="font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif; line-height: 1.6; background: #f9f9f9; padding: 20px; color: #333;">
   <div style="background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 16px; padding: 16px;">
     <div style="display: flex; align-items: center; margin-bottom: 12px;">
